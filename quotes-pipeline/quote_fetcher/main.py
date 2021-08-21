@@ -1,7 +1,3 @@
-"""
-Cloud Function to fetch quotes from quotes.toscrape.com/random 
-and publish them to PubSub
-"""
 
 import json
 import os

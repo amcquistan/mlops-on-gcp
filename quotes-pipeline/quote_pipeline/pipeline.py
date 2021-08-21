@@ -41,6 +41,8 @@ def analyze_quote(element):
       sentiment=response.document_sentiment.score,
       magnitude=response.document_sentiment.magnitude
     )
+    
+    return row
 
 
 def main(args):
@@ -53,13 +55,6 @@ def main(args):
                               staging_location=args.staginglocation,
                               temp_location=args.templocation,
                               save_main_session=True)
-#     options.view_as(GoogleCloudOptions).project = args.project
-#     options.view_as(GoogleCloudOptions).region = args.region
-#     options.view_as(GoogleCloudOptions).staging_location = args.staginglocation
-#     options.view_as(GoogleCloudOptions).temp_location = args.templocation
-#     options.view_as(GoogleCloudOptions).job_name = 
-#     options.view_as(StandardOptions).runner = args.runner
-#     pipeline.view_as(SetupOptions).save_main_session = True
     
     table_spec = bigquery.TableReference(projectId=args.project,
                                          datasetId=args.bqdataset,
