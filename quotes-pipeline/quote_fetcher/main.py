@@ -10,7 +10,7 @@ import typing
 import requests
 
 from bs4 import BeautifulSoup
-from google.cloud import language_v1, pubsub_v1
+from google.cloud import pubsub_v1
 
 from pydantic import BaseModel
 
@@ -25,22 +25,22 @@ class Quote(BaseModel):
     sentiment : typing.Optional[float]
     magnitude : typing.Optional[float]
     
-    def calc_sentiment(self):
-        client = language_v1.LanguageServiceClient()
-        doc = {
-          'content': self.text,
-          'type_': language_v1.Document.Type.PLAIN_TEXT,
-          'language': 'en' 
-        }
+#     def calc_sentiment(self):
+#         client = language_v1.LanguageServiceClient()
+#         doc = {
+#           'content': self.text,
+#           'type_': language_v1.Document.Type.PLAIN_TEXT,
+#           'language': 'en' 
+#         }
         
-        request = {
-            'document': doc,
-            'encoding_type': language_v1.EncodingType.UTF8
-        }
-        response = client.analyze_sentiment(request)
+#         request = {
+#             'document': doc,
+#             'encoding_type': language_v1.EncodingType.UTF8
+#         }
+#         response = client.analyze_sentiment(request)
         
-        self.sentiment = response.document_sentiment.score
-        self.magnitude = response.document_sentiment.magnitude
+#         self.sentiment = response.document_sentiment.score
+#         self.magnitude = response.document_sentiment.magnitude
         
 
 def fetch_quote(events, context):
@@ -58,7 +58,7 @@ def fetch_quote(events, context):
         tags=[el.get_text() for el in quote_el.find_all('a', class_='tag')]
     )
 
-    quote.calc_sentiment()
+#     quote.calc_sentiment()
     
     # TODO: publish to pubsub topic
     
