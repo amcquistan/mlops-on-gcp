@@ -45,7 +45,7 @@ def analyze_quote(element):
     return row
 
 
-def main(args):
+def main(args, beam_args):
     options = PipelineOptions(beam_args,
                               runner=args.runner,
                               streaming=True,
@@ -109,4 +109,4 @@ if __name__ == '__main__':
     
     args, beam_args = parser.parse_known_args()
     
-    main(args)
+    main(args, beam_args)
